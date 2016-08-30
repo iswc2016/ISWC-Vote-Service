@@ -1,78 +1,131 @@
--- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.0.9
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1    Database: iswc2016
--- ------------------------------------------------------
--- Server version	5.6.14
+-- Host: localhost
+-- Generation Time: Aug 31, 2016 at 12:41 AM
+-- Server version: 5.6.14
+-- PHP Version: 5.5.6
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Database: `iswc2016`
+--
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `ISWCKEYS`
 --
 
-DROP TABLE IF EXISTS `ISWCKEYS`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ISWCKEYS` (
+CREATE TABLE IF NOT EXISTS `ISWCKEYS` (
   `iswckey` varchar(10) NOT NULL,
   PRIMARY KEY (`iswckey`),
   UNIQUE KEY `iswckey_UNIQUE` (`iswckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ISWCKEYS`
 --
 
-LOCK TABLES `ISWCKEYS` WRITE;
-/*!40000 ALTER TABLE `ISWCKEYS` DISABLE KEYS */;
-INSERT INTO `ISWCKEYS` VALUES ('a1'),('a2'),('a3'),('a4'),('a5'),('a6'),('a7'),('a8'),('a9');
-/*!40000 ALTER TABLE `ISWCKEYS` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `ISWCKEYS` (`iswckey`) VALUES
+('a1'),
+('a2'),
+('a3'),
+('a4'),
+('a5'),
+('a6'),
+('a7'),
+('a8'),
+('a9');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ISWCTYPES`
+--
+
+CREATE TABLE IF NOT EXISTS `ISWCTYPES` (
+  `type` varchar(10) NOT NULL,
+  PRIMARY KEY (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ISWCTYPES`
+--
+
+INSERT INTO `ISWCTYPES` (`type`) VALUES
+('demo'),
+('poster');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `ISWCVOTES`
 --
 
-DROP TABLE IF EXISTS `ISWCVOTES`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ISWCVOTES` (
+CREATE TABLE IF NOT EXISTS `ISWCVOTES` (
   `iswckey` varchar(10) NOT NULL,
-  `vote` varchar(50) NOT NULL,
+  `iswctype` varchar(10) NOT NULL,
+  `votefor` varchar(50) NOT NULL,
   `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`iswckey`),
-  UNIQUE KEY `iswckey_UNIQUE` (`iswckey`),
-  CONSTRAINT `vote_iswckey` FOREIGN KEY (`iswckey`) REFERENCES `ISWCKEYS` (`iswckey`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`iswckey`,`iswctype`),
+  UNIQUE KEY `iswckey` (`iswckey`,`iswctype`),
+  KEY `iswc_type` (`iswctype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ISWCVOTES`
 --
 
-LOCK TABLES `ISWCVOTES` WRITE;
-/*!40000 ALTER TABLE `ISWCVOTES` DISABLE KEYS */;
-INSERT INTO `ISWCVOTES` VALUES ('a1','444sdfdsa','2016-08-22 16:32:00'),('a2','444sdfdsasdf','2016-08-22 16:32:10');
-/*!40000 ALTER TABLE `ISWCVOTES` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `ISWCVOTES` (`iswckey`, `iswctype`, `votefor`, `timestamp`) VALUES
+('a1', 'demo', 'demo_smith_2', '2016-08-30 23:08:15'),
+('a1', 'poster', 'poster_rathachai_55', '2016-08-30 23:08:25'),
+('a2', 'demo', 'demo_miel_7', '2016-08-30 23:10:44'),
+('a2', 'poster', 'poster_rathachai_55', '2016-08-30 23:10:19'),
+('a3', 'demo', 'demo_peter_1', '2016-08-30 23:27:47'),
+('a3', 'poster', 'poster_honda_16', '2016-08-30 23:40:53'),
+('a4', 'demo', 'demo_peter_1', '2016-08-30 23:29:41'),
+('a5', 'demo', 'demo_peter_1', '2016-08-30 23:38:19');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `ISWCVOTE_SCORES`
+--
+CREATE TABLE IF NOT EXISTS `ISWCVOTE_SCORES` (
+`type` varchar(10)
+,`votefor` varchar(50)
+,`score` bigint(21)
+);
+-- --------------------------------------------------------
+
+--
+-- Structure for view `ISWCVOTE_SCORES`
+--
+DROP TABLE IF EXISTS `ISWCVOTE_SCORES`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `iswcvote_scores` AS select `iswcvotes`.`iswctype` AS `type`,`iswcvotes`.`votefor` AS `votefor`,count(0) AS `score` from `iswcvotes` group by `iswcvotes`.`iswctype`,`iswcvotes`.`votefor` order by `iswcvotes`.`iswctype`,`score` desc;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `ISWCVOTES`
+--
+ALTER TABLE `ISWCVOTES`
+  ADD CONSTRAINT `iswc_type` FOREIGN KEY (`iswctype`) REFERENCES `ISWCTYPES` (`type`),
+  ADD CONSTRAINT `iswc_key` FOREIGN KEY (`iswckey`) REFERENCES `ISWCKEYS` (`iswckey`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-08-22 16:36:54
