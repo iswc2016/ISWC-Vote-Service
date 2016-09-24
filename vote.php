@@ -13,8 +13,12 @@ if ($conn->connect_error) {
 } 
 
 $iswckey = isset($_POST["key"])?$_POST["key"]:$_GET["key"];
-$iswctype = $_GET["type"];
 $vote = $_GET["vote"];
+
+//$iswctype = $_GET["type"];
+$iswctype = strtolower(explode("_", $vote)[0]);
+
+echo $iswctype;
 
 
 $sql = "INSERT INTO ISWCVOTES (iswckey, iswctype, votefor)
