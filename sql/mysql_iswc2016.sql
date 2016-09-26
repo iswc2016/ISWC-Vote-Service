@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `ISWCVOTES` (
   `iswckey` varchar(10) NOT NULL,
   `iswctype` varchar(10) NOT NULL,
   `votefor` varchar(50) NOT NULL,
-  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` timestamp DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`iswckey`,`iswctype`),
   UNIQUE KEY `iswckey` (`iswckey`,`iswctype`),
   KEY `iswc_type` (`iswctype`)
@@ -86,15 +86,15 @@ CREATE TABLE IF NOT EXISTS `ISWCVOTES` (
 -- Dumping data for table `ISWCVOTES`
 --
 
-INSERT INTO `ISWCVOTES` (`iswckey`, `iswctype`, `votefor`, `timestamp`) VALUES
-('a1', 'demo', 'demo_smith_2', '2016-08-30 23:08:15'),
-('a1', 'poster', 'poster_rathachai_55', '2016-08-30 23:08:25'),
-('a2', 'demo', 'demo_miel_7', '2016-08-30 23:10:44'),
-('a2', 'poster', 'poster_rathachai_55', '2016-08-30 23:10:19'),
-('a3', 'demo', 'demo_peter_1', '2016-08-30 23:27:47'),
-('a3', 'poster', 'poster_honda_16', '2016-08-30 23:40:53'),
-('a4', 'demo', 'demo_peter_1', '2016-08-30 23:29:41'),
-('a5', 'demo', 'demo_peter_1', '2016-08-30 23:38:19');
+INSERT INTO `ISWCVOTES` (`iswckey`, `iswctype`, `votefor`) VALUES
+('a1', 'demo', 'demo_smith_2'),
+('a1', 'poster', 'poster_rathachai_55'),
+('a2', 'demo', 'demo_miel_7'),
+('a2', 'poster', 'poster_rathachai_55'),
+('a3', 'demo', 'demo_peter_1'),
+('a3', 'poster', 'poster_honda_16'),
+('a4', 'demo', 'demo_peter_1'),
+('a5', 'demo', 'demo_peter_1');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `ISWCVOTE_SCORES` (
 --
 DROP TABLE IF EXISTS `ISWCVOTE_SCORES`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `iswcvote_scores` AS select `iswcvotes`.`iswctype` AS `type`,`iswcvotes`.`votefor` AS `votefor`,count(0) AS `score` from `iswcvotes` group by `iswcvotes`.`iswctype`,`iswcvotes`.`votefor` order by `iswcvotes`.`iswctype`,`score` desc;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `iswcvote_scores` AS select `ISWCVOTES`.`iswctype` AS `type`,`ISWCVOTES`.`votefor` AS `votefor`,count(0) AS `score` from `ISWCVOTES` group by `ISWCVOTES`.`iswctype`,`ISWCVOTES`.`votefor` order by `ISWCVOTES`.`iswctype`,`score` desc;
 
 --
 -- Constraints for dumped tables
