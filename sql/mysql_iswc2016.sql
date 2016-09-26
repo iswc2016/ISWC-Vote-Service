@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `ISWCVOTE_SCORES` (
 --
 DROP TABLE IF EXISTS `ISWCVOTE_SCORES`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `iswcvote_scores` AS select `ISWCVOTES`.`iswctype` AS `type`,`ISWCVOTES`.`votefor` AS `votefor`,count(0) AS `score` from `ISWCVOTES` group by `ISWCVOTES`.`iswctype`,`ISWCVOTES`.`votefor` order by `ISWCVOTES`.`iswctype`,`score` desc;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ISWCVOTE_SCORES` AS select `ISWCVOTES`.`iswctype` AS `type`,`ISWCVOTES`.`votefor` AS `votefor`,count(0) AS `score` from `ISWCVOTES` group by `ISWCVOTES`.`iswctype`,`ISWCVOTES`.`votefor` order by `ISWCVOTES`.`iswctype`,`score` desc;
 
 --
 -- Constraints for dumped tables
