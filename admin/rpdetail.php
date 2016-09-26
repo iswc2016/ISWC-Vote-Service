@@ -31,7 +31,7 @@ if($_GET["key"]==$adminkey){
 	    die("Connection failed: " . $conn->connect_error);
 	} 
 
-	$sql = "SELECT iswckey, votefor, iswctype, timestamp FROM ISWCVOTES";
+	$sql = "SELECT iswckey, votefor, iswctype, timestamp FROM ISWCVOTES ORDER BY timestamp DESC";
 
 
 	$result = $conn->query($sql);
