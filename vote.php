@@ -13,7 +13,8 @@ if ($conn->connect_error) {
 } 
 
 $iswckey = isset($_POST["key"])?$_POST["key"]:$_GET["key"];
-$vote = $_GET["vote"];
+//$vote = $_GET["vote"];
+$vote = isset($_POST["vote"])?$_POST["vote"]:$_GET["vote"];
 
 //$iswctype = $_GET["type"];
 $iswctype = strtolower(explode("_", $vote)[0]);
